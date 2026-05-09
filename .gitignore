@@ -14,7 +14,6 @@ logs/
 # Django
 *.log
 db.sqlite3
-media/
 staticfiles/
 
 # Node
@@ -47,3 +46,4 @@ backend/config.ini
 .cache/
 
 CLAUDE.md
+backend/media/
