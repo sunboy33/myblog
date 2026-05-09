@@ -45,3 +45,5 @@ backend/config.ini
 # Temporary files
 *.tmp
 .cache/
+
+CLAUDE.md
