@@ -1,23 +1,10 @@
-<script>
+<script setup>
+import { computed } from 'vue'
 
-const webInfo = JSON.parse(localStorage.getItem('webInfo') || '{}')
+const webInfo = JSON.parse(localStorage.getItem('webInfo'))
 
-export default {
-    data() {
-        return {
-        }
-    },
-    computed:{
-        icpNumber(){
-            return webInfo.icpNumber
-        },
-        contactEmail(){
-            return webInfo.contactEmail
-        }
-    }
-}
-
-
+const icpNumber = computed(() => webInfo.icpNumber)
+const contactEmail = computed(() => webInfo.contactEmail)
 </script>
 
 <template>

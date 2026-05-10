@@ -16,12 +16,12 @@ import redis
 WEB_SETTINGS_KEY = "website:settings"
 
 WEB_DEFAULT_CONFIG = {
-    "title": "测试主题",
-    "poem": "测试的句子",
-    "author": "无",
-    "icpNumber": "无",
-    "contactEmail": "无",
-    "copyright": "版权",
+    "title": "天行九歌",
+    "poem": "水面的涟漪虽然暂时消失了，但仍会有人记得，风曾经吹过。",
+    "author": "sunboy",
+    "icpNumber": "湘ICP备2025126555号",
+    "contactEmail": "2125337764@qq.com",
+    "copyright": "暂无",
     "backGroundPreview": ""
 }
 

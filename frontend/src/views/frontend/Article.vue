@@ -281,7 +281,8 @@ onUnmounted(() => {
                     d="M436.4 282.1c0 24.1-19.6 43.7-43.7 43.7S349 306.2 349 282.1s19.6-43.7 43.7-43.7c24.19999999 0 43.7 19.6 43.7 43.7z"
                     fill="#FFFFFF"></path>
                   <path d="M625 282.1m-43.7 0a43.7 43.7 0 1 0 87.4 0 43.7 43.7 0 1 0-87.4 0Z" fill="#FFFFFF"></path>
-                </svg></i>
+                </svg>
+              </i>
               {{ articleData.author }}
             </span>
             <span class="separator">·</span>
@@ -348,7 +349,8 @@ onUnmounted(() => {
       <div class="article-content-wrapper">
         <div class="article-container">
           <div class="entry-content">
-            <MdPreview :id="'preview-only'" :modelValue="articleData.text" :editorExtensions="{ highlight: { instance: hljs } }" />
+            <MdPreview :id="'preview-only'" :modelValue="articleData.text"
+              :editorExtensions="{ highlight: { instance: hljs } }" />
           </div>
           <div class="article-update-time">
             <span>文章最后更新于 {{ articleData.finalltime }}</span>
@@ -360,11 +362,11 @@ onUnmounted(() => {
           <blockquote class="article-disclaimer">
             <div>作者：{{ articleData.author }}</div>
             <div>1. 本网站部分内容可能来源于网络，仅供大家学习与参考，如有侵权，请联系站长进行删除处理。</div>
-            <div>2. 本网站一切内容不代表本站立场，并不代表本站转型升级和对其真实性负责。</div>
-            <div>
+            <div>2. 本网站一切内容不代表本站立场，并不代表本站赞同其观点和对其真实性负责。</div>
+            <!-- <div>
               <span>3. 版权&amp;许可请详阅</span>
               <span class="copyright-link">版权声明</span>
-            </div>
+            </div> -->
           </blockquote>
 
           <!-- 评论区 -->
@@ -383,7 +385,8 @@ onUnmounted(() => {
                   <el-popover placement="top-start" :width="300" trigger="hover" :show-after="200">
                     <template #default>
                       <div class="emoji-panel">
-                        <span v-for="(path, name) in EMOJI_MAP" :key="name" class="emoji-item" @click="selectEmoji(name)">
+                        <span v-for="(path, name) in EMOJI_MAP" :key="name" class="emoji-item"
+                          @click="selectEmoji(name)">
                           <img :src="path" :title="name" width="24" height="24" loading="lazy" />
                         </span>
                       </div>
@@ -465,7 +468,8 @@ onUnmounted(() => {
             <el-popover placement="top-start" :width="300" trigger="hover" :show-after="200">
               <template #default>
                 <div class="emoji-panel">
-                  <span v-for="(path, name) in EMOJI_MAP" :key="name" class="emoji-item" @click="selectEmojiReply(name)">
+                  <span v-for="(path, name) in EMOJI_MAP" :key="name" class="emoji-item"
+                    @click="selectEmojiReply(name)">
                     <img :src="path" :title="name" width="24" height="24" loading="lazy" />
                   </span>
                 </div>
@@ -558,7 +562,6 @@ onUnmounted(() => {
 }
 
 .info-item {
-  display: inline-flex;
   align-items: center;
   gap: 4px;
 }
