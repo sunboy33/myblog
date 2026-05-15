@@ -1,4 +1,8 @@
 <script setup>
+import { MdPreview } from 'md-editor-v3'
+import 'md-editor-v3/lib/preview.css'
+import hljs from 'highlight.js'
+
 defineProps({
   conversation: Object,
   username: {
@@ -10,6 +14,11 @@ defineProps({
     default: ''
   }
 })
+
+// MdPreview 配置
+const previewExtensions = {
+  highlight: { instance: hljs }
+}
 </script>
 
 <template>
@@ -43,27 +52,20 @@ defineProps({
             </div>
           </div>
           <div class="message-content">
-            <div class="message-text" v-html="formatMessage(msg.content)"></div>
+            <MdPreview
+              v-if="msg.role === 'assistant'"
+              :id="'msg-' + index"
+              :modelValue="msg.content"
+              :editorExtensions="previewExtensions"
+              :previewOnly="true"
+            />
+            <div v-else class="message-text">{{ msg.content }}</div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  methods: {
-    formatMessage(content) {
-      return content
-        .replace(/\n/g, '<br>')
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        .replace(/\*(.*?)\*/g, '<em>$1</em>')
-        .replace(/`(.*?)`/g, '<code>$1</code>')
-    }
-  }
-}
-</script>
 
 <style scoped>
 .chat-area {
@@ -182,11 +184,33 @@ export default {
 
 .message.user .message-content {
   background: var(--accent-color);
-  color: white;
+  color: var(--bg-secondary);
 }
 
 .message-text {
   font-size: 14px;
   line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
+
+/* MdPreview 样式覆盖 */
+:deep(.md-editor-preview) {
+  background: var(--bg-secondary) !important;
+  padding: 0 !important;
+  
+}
+
+:deep(.md-editor-preview-wrapper) {
+  background: transparent !important;
+}
+
+
+.message.user :deep(pre) {
+  background: rgba(16, 163, 127, 0.9) !important;
+}
+
+
+
+
 </style>
