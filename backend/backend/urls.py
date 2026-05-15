@@ -7,6 +7,7 @@ urlpatterns = [
     path("api/media/", include("media.urls")),
     path("api/comment/", include("comment.urls")),
     path("api/authority/", include("authority.urls")),
-    path("api/user/", include("user.urls"))
+    path("api/user/", include("user.urls")),
+    path("api/ai/", include("ai.urls"))
 
 ]

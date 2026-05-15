@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'comment.apps.CommentsConfig',
     'media.apps.MediaConfig',
     'user.apps.UsersConfig',
+    'ai.apps.AiConfig',
     'sslserver'
 ]
 

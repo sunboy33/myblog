@@ -63,6 +63,9 @@ export default {
         },
         toUserCenter(){
             this.$router.push('/userCenter')
+        },
+        toChat() {
+            this.$router.push('/chat')
         }
 
     },
@@ -87,6 +90,11 @@ export default {
                 <li>
                     <div class="my-menu" @click="toHome">
                         <span>🏡 首页</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="my-menu" @click="toChat">
+                        <span>💬 AI</span>
                     </div>
                 </li>
                 <li>

@@ -14,6 +14,7 @@ export const useAuthStore = defineStore("auth", () => {
       const storedUser = localStorage.getItem("user")
       if (storedUser) {
         user.value = JSON.parse(storedUser)
+        console.log(user.value)
         startVerifyTimer()
       }
     }

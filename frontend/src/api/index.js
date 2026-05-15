@@ -92,8 +92,4 @@ export const uploadMedia = (formData) => httptool.post("/api/media/upload", form
 /** 删除资源 v1 */
 export const deleteMedia = (fileUrl) => httptool.delete("/api/media/", { data: { fileUrl } })
 
-/** 获取随机背景图片 */
-export const getRandomBgs = () => httptool.get(`${BASE_URL}/api/media/randombgs`)
-
-
 

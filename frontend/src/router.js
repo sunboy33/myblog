@@ -58,6 +58,11 @@ const routes = [
     name: "usercenter",
     component: () => import("@/views/frontend/UserCenter.vue"),
   },
+  {
+    path: "/chat",
+    name: "chat",
+    component: () => import("@/views/frontend/Chat.vue"),
+  },
 ];
 
 const router = createRouter({
