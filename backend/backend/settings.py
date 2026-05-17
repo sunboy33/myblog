@@ -11,7 +11,7 @@ SECRET_KEY = "django-insecure-n)ww$(hm%#sa%p=q4$^%$237mikv8vj4-r6%mt+93!(o=$*ffn
 
 DEBUG = True
 
-SECURE_SSL_REDIRECT = False
+SECURE_SSL_REDIRECT = True
 
 INSTALLED_APPS = [
     "django.contrib.admin",
