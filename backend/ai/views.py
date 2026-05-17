@@ -28,6 +28,7 @@ def chat(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_history(request):
+    print(request.user)
     """获取用户所有会话列表"""
     sessions = ChatSession.objects.filter(user=request.user)
     serializer = ChatSessionSerializer(sessions, many=True)

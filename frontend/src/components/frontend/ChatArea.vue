@@ -211,6 +211,12 @@ const previewExtensions = {
 }
 
 
+:deep(.md-editor-preview h1, .md-editor-preview h2, .md-editor-preview h3, .md-editor-preview h4, .md-editor-preview h5, .md-editor-preview h6) {
+    margin: 0.3em 0 .8em;
+    font-weight: 700;
+}
+
+
 
 
 </style>

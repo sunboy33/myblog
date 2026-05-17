@@ -162,7 +162,7 @@ LOGGING = {
     },
     "loggers": {
         "api": {
-            "handlers": ["console", "file"],
+            "handlers": ["file"],
             "level": "INFO",
             "propagate": False,
         },

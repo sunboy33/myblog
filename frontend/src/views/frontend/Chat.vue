@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, computed } from 'vue'
+import { onMounted, computed, onBeforeUnmount } from 'vue'
 import { useChatStore } from '@/stores/chat.js'
 import { useAuthStore } from '@/stores/auth.js'
 import ChatSidebar from '@/components/frontend/ChatSidebar.vue'
@@ -47,11 +47,18 @@ const handleDeleteSession = async (sessionId) => {
 onMounted(async () => {
     if (authStore.hasLogin()) {
         await chatStore.loadSessions()
-        if (chatStore.currentSessionId) {
-            await chatStore.loadSession(chatStore.currentSessionId)
+        // 刷新页面时恢复会话，首次进入不恢复
+        const storedId = chatStore.getStoredSessionId()
+        if (storedId) {
+            await chatStore.loadSession(storedId)
         }
     }
 })
+
+// onBeforeUnmount(() => {
+//         sessionStorage.removeItem('chatSessionId')
+//     }
+// )
 </script>
 
 <template>

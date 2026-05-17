@@ -8,8 +8,13 @@ export const useChatStore = defineStore("chat", () => {
     const messages = ref([])
     const isLoading = ref(false)
     const error = ref(null)
-    const currentSessionId = ref(localStorage.getItem('chatSessionId') || null)
+    const currentSessionId = ref(null)  // 初始化为 null，由组件决定是否恢复
     const sessions = ref([])
+
+    // 获取存储的会话 ID（用于恢复）
+    function getStoredSessionId() {
+        return sessionStorage.getItem('chatSessionId')
+    }
 
     // 加载会话列表
     async function loadSessions() {
@@ -35,7 +40,8 @@ export const useChatStore = defineStore("chat", () => {
             const response = await httptool.get(`/api/ai/session/${sessionId}`)
             if (response.data.code === 200) {
                 currentSessionId.value = sessionId
-                localStorage.setItem('chatSessionId', sessionId)
+                sessionStorage.setItem('chatSessionId', sessionId)
+                // localStorage.setItem('chatSessionId', sessionId)
                 messages.value = response.data.data.messages.map(m => ({
                     id: m.id,
                     role: m.role,
@@ -61,7 +67,8 @@ export const useChatStore = defineStore("chat", () => {
                 }
                 sessions.value.unshift(newSession)
                 currentSessionId.value = response.data.data.id
-                localStorage.setItem('chatSessionId', response.data.data.id)
+                sessionStorage.setItem('chatSessionId', response.data.data.id)
+
                 messages.value = []
                 return response.data.data.id
             }
@@ -85,7 +92,8 @@ export const useChatStore = defineStore("chat", () => {
                         await loadSession(sessions.value[0].id)
                     } else {
                         currentSessionId.value = null
-                        localStorage.removeItem('chatSessionId')
+                        sessionStorage.removeItem('chatSessionId')
+                        // localStorage.removeItem('chatSessionId')
                         messages.value = []
                     }
                 }
@@ -194,7 +202,8 @@ export const useChatStore = defineStore("chat", () => {
     function clearMessages() {
         messages.value = []
         currentSessionId.value = null
-        localStorage.removeItem('chatSessionId')
+        sessionStorage.removeItem('chatSessionId')
+        // localStorage.removeItem('chatSessionId')
     }
 
     return {
@@ -208,6 +217,7 @@ export const useChatStore = defineStore("chat", () => {
         createSession,
         deleteSessionAPI,
         sendMessage,
-        clearMessages
+        clearMessages,
+        getStoredSessionId
     }
 })

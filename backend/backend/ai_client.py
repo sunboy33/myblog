@@ -3,6 +3,7 @@ from django.conf import settings
 from langchain_anthropic import ChatAnthropic
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
+import re
 
 
 
@@ -14,6 +15,13 @@ llm = ChatAnthropic(
     temperature=0.7)
 
 
+def escape_braces(text):
+    """转义字符串中的大括号，避免 LangChain 模板解析错误"""
+    text = str(text)
+    text = re.sub(r'\{', '{{', text)
+    text = re.sub(r'\}', '}}', text)
+    return text
+
 
 def chat_with_ai_stream(message: str, history: list = None):
     system_msg = ("system", "你叫小抠脚, 是codejourney.cn网站的AI智能助手, 为用户解决本网站的相关问题。")
@@ -23,12 +31,11 @@ def chat_with_ai_stream(message: str, history: list = None):
     if history:
         for h in history:
             if h.get('role') == 'user':
-                messages.append(("human", h.get('content', '')))
+                messages.append(("human", escape_braces(h.get('content', ''))))
             elif h.get('role') == 'assistant':
-                messages.append(("ai", h.get('content', '')))
+                messages.append(("ai", escape_braces(h.get('content', ''))))
 
-    messages.append(("human", message))
-    print(messages)
+    messages.append(("human", escape_braces(message)))
     prompt = ChatPromptTemplate.from_messages(messages)
     parser = StrOutputParser()
     chain = prompt | llm | parser

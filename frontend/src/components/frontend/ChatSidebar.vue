@@ -1,6 +1,4 @@
 <script setup>
-import { ref } from 'vue'
-
 defineProps({
   conversations: Array,
   currentId: Number,
@@ -15,8 +13,6 @@ defineProps({
 })
 
 const emit = defineEmits(['select', 'newChat', 'delete'])
-
-const searchQuery = ref('')
 </script>
 
 <template>
@@ -30,12 +26,14 @@ const searchQuery = ref('')
       </button>
     </div>
 
-    <div class="search-box">
-      <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.5"/>
-        <path d="M11 11l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
-      <input type="text" v-model="searchQuery" placeholder="搜索对话..." />
+    <div class="search-area">
+      <button class="search-btn">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M11 11l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        搜索对话
+      </button>
     </div>
 
     <div class="conversations-list">
@@ -105,39 +103,34 @@ const searchQuery = ref('')
   opacity: 0.9;
 }
 
-.search-box {
-  padding: 0 12px 12px;
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.search-box input {
-  width: 100%;
-  padding: 8px 12px 8px 36px;
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  font-size: 14px;
-  background: var(--bg-primary);
-  outline: none;
-  box-sizing: border-box;
-}
-
-.search-box input:focus {
-  border-color: var(--accent-color);
-}
-
-.search-icon {
-  position: absolute;
-  left: 22px;
-  color: var(--text-secondary);
-  pointer-events: none;
-}
-
 .conversations-list {
   flex: 1;
   overflow-y: auto;
   padding: 0 8px;
+}
+
+.search-area {
+  padding: 0 12px 12px;
+}
+
+.search-btn {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.search-btn:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
 }
 
 .conversation-item {
