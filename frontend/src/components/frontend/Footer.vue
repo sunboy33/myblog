@@ -1,15 +1,17 @@
 <script setup>
 import { computed } from 'vue'
+import defaultBg from '@/assets/home_bg.webp'
 
 const webInfo = JSON.parse(localStorage.getItem('webInfo'))
 
 const icpNumber = computed(() => webInfo.icpNumber)
 const contactEmail = computed(() => webInfo.contactEmail)
+const bgImage = computed(() => webInfo.backGroundPreview || defaultBg)
 </script>
 
 <template>
     <div class="myFooter-wrap">
-        <div class="myFooter">
+        <div class="myFooter" :style="{ backgroundImage: `url(${bgImage})` }">
             <div class="footer-title">相信记录的力量！</div>
             <div class="icp">
                 本网站由 CODEJOURNEY 强力支持
@@ -17,7 +19,7 @@ const contactEmail = computed(() => webInfo.contactEmail)
             </div>
             <div style="font-size: 14px; line-height: 30px;">
                 <div> 本网站部分内容来源于网络，仅供大家学习与参考。 </div>
-                <div> 本网站一切内容不代表本站立场，并不代表本站赞同其观点和对其真实性负责。 </div>
+                <div> 本网站一切内容不代表本站立场，并不代表本站其观点和对其真实性负责。 </div>
                 <div> 如无意中侵犯了某个企业或个人的知识产权，请及时通过电子邮件({{ contactEmail }})告知我们，本网站将立即给予删除。 </div>
             </div>
         </div>
@@ -35,7 +37,6 @@ const contactEmail = computed(() => webInfo.contactEmail)
 
 
 .myFooter {
-    background-image: url('https://niu.codejourney.cn/static/homebackground/sunboy1777903069096.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
