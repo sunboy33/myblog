@@ -129,7 +129,7 @@ export const useChatStore = defineStore("chat", () => {
         messages.value.push({
             id: tempId + 1,
             role: "assistant",
-            content: ""
+            content: "..."
         })
 
         isLoading.value = true
