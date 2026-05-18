@@ -206,6 +206,7 @@ const aiAvatar = aiAvatarImg
 .message.user .message-content {
   background: var(--accent-color);
   color: var(--bg-secondary);
+  max-width: fit-content;
 }
 
 .message-text {
