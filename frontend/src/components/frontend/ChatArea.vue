@@ -2,6 +2,7 @@
 import { MdPreview } from 'md-editor-v3'
 import 'md-editor-v3/lib/preview.css'
 import hljs from 'highlight.js'
+import aiAvatarImg from '@/assets/icon.png'
 
 defineProps({
   conversation: Object,
@@ -19,6 +20,8 @@ defineProps({
 const previewExtensions = {
   highlight: { instance: hljs }
 }
+
+const aiAvatar = aiAvatarImg
 </script>
 
 <template>
@@ -45,11 +48,22 @@ const previewExtensions = {
                 <div class="avatar-fallback">{{ username?.charAt(0).toUpperCase() || 'U' }}</div>
               </template>
             </el-image>
-            <div v-else class="ai-avatar">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <path d="M10 2L3 7l7 5 7-5-7-5zM3 13l7 5 7-5M3 17l7 5 7-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
+            <el-image v-else class="ai-avatar-img" :src="aiAvatar" fit="cover">
+                <template #error>
+                  <div class="ai-avatar">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <line x1="12" y1="2" x2="12" y2="5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                      <circle cx="12" cy="2" r="1.5" fill="currentColor"/>
+                      <rect x="6" y="5" width="12" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                      <circle cx="9" cy="9" r="1.5" fill="currentColor"/>
+                      <circle cx="15" cy="9" r="1.5" fill="currentColor"/>
+                      <path d="M9 13h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                      <rect x="7" y="16" width="10" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                      <circle cx="12" cy="19" r="1" fill="currentColor"/>
+                    </svg>
+                  </div>
+                </template>
+              </el-image>
           </div>
           <div class="message-content">
             <MdPreview
@@ -173,6 +187,13 @@ const previewExtensions = {
   align-items: center;
   justify-content: center;
   color: var(--accent-color);
+}
+
+.ai-avatar-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .message-content {
