@@ -11,7 +11,11 @@ class RequestLoggingMiddleware:
 
     def __call__(self, request):
         start_time = time.time()
-        remote_addr = request.META.get('REMOTE_ADDR')
+        # 优先从 nginx 反向代理头获取真实 IP
+        remote_addr = request.META.get('HTTP_X_FORWARDED_FOR') or request.META.get('HTTP_X_REAL_IP') or request.META.get('REMOTE_ADDR')
+        # 只取第一个 IP（多次代理时格式：client, proxy1, proxy2）
+        if remote_addr and ',' in remote_addr:
+            remote_addr = remote_addr.split(',')[0].strip()
         method = request.method
         path = request.path
         timestamp = timezone.localtime().strftime('%Y-%m-%d %H:%M:%S')
