@@ -1,5 +1,6 @@
 <script>
 import { useAuthStore } from '@/stores/auth.js'
+import { showWarning } from '@/utils/message.js'
 
 const authStore = useAuthStore()
 
@@ -65,7 +66,11 @@ export default {
             this.$router.push('/userCenter')
         },
         toChat() {
-            this.$router.push('/chat')
+            if (this.hasLogin) {
+                showWarning('请先登录后再使用AI助手')
+            } else {
+                this.$router.push('/chat')
+            }
         }
 
     },
