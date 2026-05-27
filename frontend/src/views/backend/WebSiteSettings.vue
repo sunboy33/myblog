@@ -337,6 +337,17 @@ onMounted(() => {
     padding: 20px 0;
 }
 
+.pdf-preview {
+    padding: 40px 0;
+    text-align: center;
+    color: #67c23a;
+}
+
+.pdf-preview .el-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
 .preview-image {
     max-width: 100%;
     max-height: 200px;

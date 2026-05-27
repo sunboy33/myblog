@@ -71,6 +71,14 @@ export default {
             } else {
                 this.$router.push('/chat')
             }
+        },
+        toResume() {
+            const webInfo = JSON.parse(localStorage.getItem("webInfo") || "{}")
+            if (webInfo.resumeUrl) {
+                window.open(webInfo.resumeUrl, '_blank')
+            } else {
+                showWarning('暂未上传简历')
+            }
         }
 
     },
@@ -100,6 +108,11 @@ export default {
                 <li>
                     <div class="my-menu" @click="toChat">
                         <span>💬 AI</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="my-menu" @click="toResume">
+                        <span>📄 简历</span>
                     </div>
                 </li>
                 <li>

@@ -19,6 +19,10 @@ const routes = [
     component: () => import("@/views/backend/WebSiteSettings.vue"),
   },
   {
+    path: "/ResumeManage",
+    component: () => import("@/views/backend/ResumeManage.vue"),
+  },
+  {
     path: "/UserManage",
     component: () => import("@/views/backend/UserManage.vue"),
   },

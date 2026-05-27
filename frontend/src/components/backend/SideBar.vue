@@ -6,6 +6,7 @@ export default {
         return {
             menuItems: [
                 { name: "网站设置", icon: "Tools", path: '/WebSiteSettings' },
+                { name: "简历管理", icon: "Document", path: '/ResumeManage' },
                 { name: "用户管理", icon: "UserFilled", path: '/UserManage' },
                 { name: "分类管理", icon: "Memo", path: '/ClassManage' },
                 { name: "标签管理", icon: "PriceTag", path: '/LabelManage' },

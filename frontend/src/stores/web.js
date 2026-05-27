@@ -11,7 +11,8 @@ export const webSettingStore = defineStore("webSetting", {
         bgImage: '',
         copyright: '',
         contactEmail: '',
-        icpNumber: ''
+        icpNumber: '',
+        resumeUrl: ''
     }),
     actions: {
         async initialize() {
@@ -23,7 +24,7 @@ export const webSettingStore = defineStore("webSetting", {
             this.contactEmail = data.contactEmail,
             this.icpNumber = data.icpNumber,
             this.copyright = data.copyright
-
+            this.resumeUrl = data.resumeUrl || ''
         }
     }
 })

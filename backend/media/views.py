@@ -1,4 +1,5 @@
 import time
+import io
 
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
@@ -11,6 +12,7 @@ from django.conf import settings
 from .utils import upload_to_qiniu, delete_from_qiniu
 from backend.redis_client import redis_client
 import redis
+from pypdf import PdfReader, PdfWriter
 
 
 WEB_SETTINGS_KEY = "website:settings"
@@ -22,7 +24,8 @@ WEB_DEFAULT_CONFIG = {
     "icpNumber": "湘ICP备2025126555号",
     "contactEmail": "2125337764@qq.com",
     "copyright": "暂无",
-    "backGroundPreview": ""
+    "backGroundPreview": "",
+    "resumeUrl": ""
 }
 
 """
@@ -71,6 +74,7 @@ def web_setting(request):
 def upload(request):
     """上传文件到七牛云"""
     file_name = request.POST.get("fileName")
+    print(file_name)
     file_type = request.POST.get("type")
     file_data = request.FILES.get("file")
     old_src_path = request.POST.get("old_src_path")
@@ -87,8 +91,37 @@ def upload(request):
             "message": f"文件大小不能超过 {settings.QINIU_MAX_FILE_SIZE // (1024 * 1024)}MB"
         }, status=status.HTTP_400_BAD_REQUEST)
 
+    # 如果是PDF类型，修改PDF标题
+    file_content = file_data.read()
+    print(file_type, file_name)
+    if file_type == 'resume' and file_name.endswith('.pdf'):
+        try:
+            reader = PdfReader(io.BytesIO(file_content))
+            writer = PdfWriter()
+
+            # 复制所有页面
+            for page in reader.pages:
+                writer.add_page(page)
+
+            # 设置PDF标题为文件名（不含扩展名）
+            title = file_name.rsplit('.', 1)[0]
+            writer.add_metadata({"/Title": title})
+
+            # 输出到 BytesIO
+            output = io.BytesIO()
+            writer.write(output)
+            file_content = output.getvalue()
+        except Exception as e:
+            import logging
+            logging.getLogger('api').warning(f"Failed to modify PDF title: {e}")
+
     file_path = f"static/{file_type}/{file_name}"
-    success, result = upload_to_qiniu(file_path, file_data, old_src_path)
+
+    # upload_to_qiniu 需要可读取的对象，如果已经是bytes则包装成BytesIO
+    if isinstance(file_content, bytes):
+        file_content = io.BytesIO(file_content)
+
+    success, result = upload_to_qiniu(file_path, file_content, old_src_path)
 
     if success:
         return Response({
